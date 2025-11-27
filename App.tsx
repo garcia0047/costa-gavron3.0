@@ -46,11 +46,11 @@ const NewsletterPopup = () => {
     setMessage('');
 
     try {
-      // Enviar email para você
+      // Enviar email para você com notificação
       await emailjs.send('service_costa', 'template_newsletter', {
         to_email: 'costagavron@gmail.com',
         subscriber_email: email,
-        message: `Novo interesse em newsletter! Email: ${email}`
+        message: `Olá! Obrigado por se inscrever. Sua solicitação foi recebida com sucesso e já estamos acompanhando por aqui.\nSe precisar de algo, é só responder este e-mail. Estamos à disposição!`
       });
 
       setMessage('✓ Obrigado! Verifique seu email.');
