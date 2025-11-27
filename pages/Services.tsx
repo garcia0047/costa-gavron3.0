@@ -2,6 +2,7 @@ import React from 'react';
 import Button from '../components/Button';
 import { Link } from 'react-router-dom';
 import { Check, CheckCircle2, ArrowRight, Share2, Globe, TrendingUp } from 'lucide-react';
+import { Layout } from '../components/Layout';
 
 const Services = () => {
   const servicesList = [
@@ -98,9 +99,10 @@ const Services = () => {
   ];
 
   return (
-    <div className="bg-[#FAFAFA] min-h-screen">
+    <Layout>
+      <div className="bg-[#FAFAFA] min-h-screen">
        {/* Header Section */}
-      <div className="bg-[#0A0A0A] text-white pt-48 pb-24 md:pt-60 md:pb-32 text-center relative -mt-24">
+      <div className="bg-[#0A0A0A] text-white pt-48 pb-24 md:pt-60 md:pb-32 text-center relative">
          <div className="container mx-auto px-6 relative z-10">
            <span className="bg-[#2A2A2A] text-[#C9A962] px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wide inline-block mb-6">Nossos Serviços</span>
            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">Soluções completas para <br/> <span className="text-[#C9A962]">transformar seu negócio</span></h1>
@@ -221,7 +223,7 @@ const Services = () => {
           </div>
         </div>
       </div>
-    </div>
+    </Layout>
   );
 };
 

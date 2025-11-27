@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Button from '../components/Button';
 import { MapPin, Phone, Mail, Send, Clock, Instagram, Linkedin, MessageCircle } from 'lucide-react';
+import { Layout } from '../components/Layout';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -22,9 +23,10 @@ const Contact = () => {
   };
 
   return (
-    <div className="bg-[#FAFAFA] min-h-screen">
+    <Layout>
+      <div className="bg-[#FAFAFA] min-h-screen">
        {/* Header */}
-       <div className="bg-[#0A0A0A] text-white pt-48 pb-24 md:pt-60 md:pb-32 text-center relative -mt-24">
+       <div className="bg-[#0A0A0A] text-white pt-48 pb-24 md:pt-60 md:pb-32 text-center relative">
          <div className="container mx-auto px-6 relative z-10">
            <span className="bg-[#2A2A2A] text-[#C9A962] px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wide inline-block mb-6">Contato</span>
            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">Vamos conversar sobre <br/> <span className="text-[#C9A962]">seu projeto?</span></h1>
@@ -34,7 +36,7 @@ const Contact = () => {
          </div>
       </div>
 
-      <div className="container mx-auto px-6 py-16 -mt-20 relative z-10">
+      <div className="container mx-auto px-6 py-16 relative z-10">
         <div className="grid lg:grid-cols-12 gap-8 max-w-7xl mx-auto">
           
           {/* LEFT COLUMN: Contact Info */}
@@ -225,7 +227,8 @@ const Contact = () => {
            </div>
         </div>
       </div>
-    </div>
+      </div>
+    </Layout>
   );
 };
 
