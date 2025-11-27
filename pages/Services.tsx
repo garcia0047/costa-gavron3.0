@@ -2,7 +2,6 @@ import React from 'react';
 import Button from '../components/Button';
 import { Link } from 'react-router-dom';
 import { Check, CheckCircle2, ArrowRight, Share2, Globe, TrendingUp } from 'lucide-react';
-import { Layout } from '../components/Layout';
 
 const Services = () => {
   const servicesList = [
@@ -99,7 +98,7 @@ const Services = () => {
   ];
 
   return (
-    <Layout>
+    <div className="bg-[#FAFAFA] min-h-screen">
       {/* Header Section */}
       <div className="bg-[#0A0A0A] text-white pt-48 pb-24 md:pt-60 md:pb-32 text-center relative">
          <div className="container mx-auto px-6 relative z-10">
@@ -222,7 +221,7 @@ const Services = () => {
           </div>
         </div>
       </div>
-    </Layout>
+    </div>
   );
 };
 

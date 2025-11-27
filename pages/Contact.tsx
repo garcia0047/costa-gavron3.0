@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import Button from '../components/Button';
 import { MapPin, Phone, Mail, Send, Clock, Instagram, Linkedin, MessageCircle } from 'lucide-react';
-import { Layout } from '../components/Layout';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -23,7 +22,7 @@ const Contact = () => {
   };
 
   return (
-    <Layout>
+    <div className="bg-[#FAFAFA] min-h-screen">
       {/* Header */}
       <div className="bg-[#0A0A0A] text-white pt-48 pb-24 md:pt-60 md:pb-32 text-center relative">
          <div className="container mx-auto px-6 relative z-10">
@@ -226,7 +225,7 @@ const Contact = () => {
            </div>
         </div>
       </div>
-    </Layout>
+    </div>
   );
 };
 
