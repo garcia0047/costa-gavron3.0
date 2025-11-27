@@ -100,8 +100,7 @@ const Services = () => {
 
   return (
     <Layout>
-      <div className="bg-[#FAFAFA] min-h-screen">
-       {/* Header Section */}
+      {/* Header Section */}
       <div className="bg-[#0A0A0A] text-white pt-48 pb-24 md:pt-60 md:pb-32 text-center relative">
          <div className="container mx-auto px-6 relative z-10">
            <span className="bg-[#2A2A2A] text-[#C9A962] px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wide inline-block mb-6">Nossos Serviços</span>
@@ -220,7 +219,6 @@ const Services = () => {
                 Fale com um especialista <ArrowRight size={20} className="ml-2" />
               </Button>
             </Link>
-          </div>
         </div>
       </div>
     </Layout>
