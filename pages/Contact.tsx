@@ -53,7 +53,7 @@ const Contact = () => {
                    </div>
                    <div>
                      <h4 className="text-[#0A0A0A] font-bold mb-1">E-mail</h4>
-                     <p className="text-zinc-500 text-sm">contato@costagavron.com</p>
+                     <p className="text-zinc-500 text-sm">costagavron@gmail.com</p>
                    </div>
                  </div>
 
@@ -64,7 +64,7 @@ const Contact = () => {
                    </div>
                    <div>
                      <h4 className="text-[#0A0A0A] font-bold mb-1">Telefone</h4>
-                     <p className="text-zinc-500 text-sm">(11) 99999-9999</p>
+                     <p className="text-zinc-500 text-sm">(41) 99895-1738</p>
                    </div>
                  </div>
 
@@ -75,7 +75,7 @@ const Contact = () => {
                    </div>
                    <div>
                      <h4 className="text-[#0A0A0A] font-bold mb-1">Localização</h4>
-                     <p className="text-zinc-500 text-sm">São Paulo, SP</p>
+                     <p className="text-zinc-500 text-sm">Curitiba, PR</p>
                    </div>
                  </div>
 
@@ -104,7 +104,7 @@ const Contact = () => {
             {/* Map Placeholder */}
             <div className="bg-zinc-200 rounded-[2.5rem] h-64 w-full flex flex-col items-center justify-center text-zinc-400">
                 <MapPin size={32} className="mb-2 opacity-50" />
-                <p className="text-sm font-medium">São Paulo, SP - Brasil</p>
+                <p className="text-sm font-medium">Curitiba, PR - Brasil</p>
             </div>
           </div>
 
