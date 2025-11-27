@@ -1,20 +1,30 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+﻿# Costa Gavron Creative
 
-# Run and deploy your AI Studio app
+Repositório do projeto front-end estático React/TypeScript.
 
-This contains everything you need to run your app locally.
+- Repositório remoto (privado): https://github.com/geancosta420-bit/costa-gavron-criativo2
 
-View your app in AI Studio: https://ai.studio/apps/drive/19OxTGo8_teXd7X-aU9KlnHpw3XsLn3dT
+Este repositório contém tudo que é necessário para rodar o projeto localmente.
 
-## Run Locally
+## Rodar localmente
 
-**Prerequisites:**  Node.js
+**Pré-requisitos:** `Node.js` (versão LTS recomendada) e `npm`.
 
-
-1. Install dependencies:
+1. Instale dependências:
    `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
+2. (Opcional) Se o projeto usar variáveis de ambiente, crie um arquivo `.env.local` com as chaves necessárias.
+3. Rode em modo de desenvolvimento:
    `npm run dev`
+
+## Build para produção
+
+Gerar arquivos de produção:
+```
+npm run build
+```
+
+## Notas de segurança
+- O repositório remoto criado é privado. Se você usou um Personal Access Token (PAT) para criação, revogue-o em GitHub  Settings  Developer settings  Personal access tokens.
+
+## Contato
+Abra uma issue no repositório privado ou entre em contato diretamente para alterações adicionais.
