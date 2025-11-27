@@ -28,7 +28,7 @@ const Hero = () => {
           transition={{ duration: 0.8 }}
         >
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#0A0A0A] text-white mb-8 shadow-lg">
-             <span className="w-2 h-2 rounded-full bg-[#C9A962]"></span>
+             <span className="w-2 h-2 rounded-full bg-[#C9A962] animate-pulse"></span>
              <span className="text-xs font-bold uppercase tracking-wider">Agência de Design & Marketing</span>
           </div>
           
