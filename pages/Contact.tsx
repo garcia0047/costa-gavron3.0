@@ -101,11 +101,18 @@ const Contact = () => {
                </div>
             </div>
 
-            {/* Map Placeholder */}
-            <div className="bg-zinc-200 rounded-[2.5rem] h-64 w-full flex flex-col items-center justify-center text-zinc-400">
-                <MapPin size={32} className="mb-2 opacity-50" />
-                <p className="text-sm font-medium">Curitiba, PR - Brasil</p>
-            </div>
+            {/* Map */}
+            <iframe 
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3581.5203169898166!2d-49.26422632346948!3d-25.420605335697343!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94dcf8c3f1c8c8c1%3A0x0!2sCuritiba%2C%20State%20of%20Paran%C3%A1!5e0!3m2!1sen!2sbr!4v1701086400000" 
+              width="100%" 
+              height="256" 
+              style={{ border: 0 }}
+              allowFullScreen={true}
+              loading="lazy" 
+              referrerPolicy="no-referrer-when-downgrade"
+              className="rounded-[2.5rem] shadow-lg"
+            />
+
           </div>
 
           {/* RIGHT COLUMN: Form */}
