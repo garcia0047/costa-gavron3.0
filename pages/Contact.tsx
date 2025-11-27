@@ -24,9 +24,8 @@ const Contact = () => {
 
   return (
     <Layout>
-      <div className="bg-[#FAFAFA] min-h-screen">
-       {/* Header */}
-       <div className="bg-[#0A0A0A] text-white pt-48 pb-24 md:pt-60 md:pb-32 text-center relative">
+      {/* Header */}
+      <div className="bg-[#0A0A0A] text-white pt-48 pb-24 md:pt-60 md:pb-32 text-center relative">
          <div className="container mx-auto px-6 relative z-10">
            <span className="bg-[#2A2A2A] text-[#C9A962] px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wide inline-block mb-6">Contato</span>
            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">Vamos conversar sobre <br/> <span className="text-[#C9A962]">seu projeto?</span></h1>
@@ -226,7 +225,6 @@ const Contact = () => {
               </div>
            </div>
         </div>
-      </div>
       </div>
     </Layout>
   );
