@@ -7,9 +7,16 @@ import Services from './pages/Services';
 import Contact from './pages/Contact';
 import { X } from 'lucide-react';
 import Button from './components/Button';
+import emailjs from '@emailjs/browser';
+
+// Initialize EmailJS (você precisa gerar uma chave no site: https://www.emailjs.com/)
+emailjs.init('YOUR_PUBLIC_KEY_HERE'); // Será substituído após gerar a chave
 
 const NewsletterPopup = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const [email, setEmail] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [message, setMessage] = useState('');
 
   useEffect(() => {
     // Show popup after 8 seconds
@@ -27,6 +34,40 @@ const NewsletterPopup = () => {
     sessionStorage.setItem('newsletter_dismissed', 'true');
   };
 
+  const handleSubscribe = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (!email) {
+      setMessage('Por favor, insira seu email');
+      return;
+    }
+
+    setIsLoading(true);
+    setMessage('');
+
+    try {
+      // Enviar email para você
+      await emailjs.send('service_costa', 'template_newsletter', {
+        to_email: 'costagavron@gmail.com',
+        subscriber_email: email,
+        message: `Novo interesse em newsletter! Email: ${email}`
+      });
+
+      setMessage('✓ Obrigado! Verifique seu email.');
+      setEmail('');
+      
+      // Fechar popup após sucesso
+      setTimeout(() => {
+        handleClose();
+      }, 2000);
+    } catch (error) {
+      console.error('Erro ao enviar email:', error);
+      setMessage('Erro ao inscrever. Tente novamente.');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   if (!isVisible) return null;
 
   return (
@@ -40,14 +81,24 @@ const NewsletterPopup = () => {
         <p className="text-zinc-400 mb-6 text-sm">
           Junte-se à nossa lista VIP e receba insights mensais sobre branding de luxo e tendências digitais.
         </p>
-        <div className="flex gap-2">
+        <form onSubmit={handleSubscribe} className="flex gap-2 mb-3">
           <input 
             type="email" 
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             placeholder="Seu melhor e-mail" 
-            className="flex-grow bg-brand-black border border-zinc-700 p-3 text-white text-sm focus:border-brand-gold outline-none"
+            className="flex-grow bg-brand-black border border-zinc-700 p-3 text-white text-sm focus:border-brand-gold outline-none rounded"
+            disabled={isLoading}
           />
-          <Button className="!px-4">Inscrever</Button>
-        </div>
+          <Button type="submit" className="!px-4" disabled={isLoading}>
+            {isLoading ? 'Enviando...' : 'Inscrever'}
+          </Button>
+        </form>
+        {message && (
+          <p className={`text-xs ${message.includes('✓') ? 'text-green-400' : 'text-red-400'}`}>
+            {message}
+          </p>
+        )}
       </div>
     </div>
   );
