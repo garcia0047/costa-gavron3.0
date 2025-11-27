@@ -47,7 +47,7 @@ const NewsletterPopup = () => {
 
     try {
       // Enviar email para você com notificação
-      await emailjs.send('service_7n2xmhb', 'template_newsletter', {
+      await emailjs.send('service_7n2xmhb', 'template_ey44ho9', {
         to_email: 'costagavron@gmail.com',
         subscriber_email: email,
         message: `Olá! Obrigado por se inscrever. Sua solicitação foi recebida com sucesso e já estamos acompanhando por aqui.\nSe precisar de algo, é só responder este e-mail. Estamos à disposição!`
