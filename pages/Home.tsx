@@ -49,9 +49,9 @@ const Hero = () => {
           </p>
           
           <div className="flex flex-wrap items-center gap-4">
-             <Link to="/contact">
+             <a href="https://wa.me/5541998951738" target="_blank" rel="noopener noreferrer">
               <Button className="gold-gradient !text-[#0A0A0A] border-none font-bold px-8 py-4 shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all">Solicitar Orçamento Gratuito <ArrowRight size={18} className="ml-2 inline" /></Button>
-            </Link>
+            </a>
             <Link to="/portfolio">
               <button className="flex items-center gap-2 px-6 py-3.5 rounded-full border border-[#0A0A0A] text-[#0A0A0A] font-bold hover:bg-[#0A0A0A] hover:text-white transition-all duration-300 group bg-white">
                 <Play size={16} fill="currentColor" className="group-hover:text-white" />

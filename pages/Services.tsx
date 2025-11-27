@@ -187,7 +187,7 @@ const Services = () => {
                    ))}
                  </ul>
 
-                 <Link to="/contact" className="mt-auto">
+                <a href="https://wa.me/5541998951738" target="_blank" rel="noopener noreferrer">
                    <button 
                      className={`w-full py-4 rounded-full font-bold text-sm transition-all flex items-center justify-center gap-2 ${
                        plan.highlight 
@@ -197,7 +197,7 @@ const Services = () => {
                    >
                      Solicitar Orçamento <ArrowRight size={16} />
                    </button>
-                 </Link>
+                 </a>
                </div>
              ))}
            </div>

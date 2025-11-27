@@ -114,11 +114,11 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
                 {link.name}
               </Link>
             ))}
-            <Link to="/contact">
+            <a href="https://wa.me/5541998951738" target="_blank" rel="noopener noreferrer">
               <Button className="gold-gradient !text-[#0A0A0A] font-semibold px-6 hover:opacity-90 transition-opacity rounded-full border-none">
                 Solicitar Orçamento
               </Button>
-            </Link>
+            </a>
           </nav>
 
           {/* Mobile Menu Button */}
@@ -152,11 +152,11 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
                     {link.name}
                   </Link>
                 ))}
-                <Link to="/contact" onClick={() => setMobileMenuOpen(false)}>
+                <a href="https://wa.me/5541998951738" target="_blank" rel="noopener noreferrer" onClick={() => setMobileMenuOpen(false)}>
                   <Button className="w-full gold-gradient !text-[#0A0A0A] font-semibold mt-4 rounded-full border-none">
                     Solicitar Orçamento Gratuito
                   </Button>
-                </Link>
+                </a>
               </nav>
             </motion.div>
           )}
