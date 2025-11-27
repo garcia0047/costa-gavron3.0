@@ -9,8 +9,8 @@ import { X } from 'lucide-react';
 import Button from './components/Button';
 import emailjs from '@emailjs/browser';
 
-// Initialize EmailJS (você precisa gerar uma chave no site: https://www.emailjs.com/)
-emailjs.init('YOUR_PUBLIC_KEY_HERE'); // Será substituído após gerar a chave
+// Initialize EmailJS
+emailjs.init('zSbkkYshdQuHBTiW3');
 
 const NewsletterPopup = () => {
   const [isVisible, setIsVisible] = useState(false);
