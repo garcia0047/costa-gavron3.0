@@ -6,14 +6,60 @@ interface Message {
   content: string;
 }
 
+// Knowledge base with FAQ responses
+const knowledgeBase = [
+  {
+    keywords: ['serviço', 'serviços', 'o que vocês fazem', 'qual é o escopo', 'oferece'],
+    response: 'A Costa Gavron oferece três principais serviços:\n\n📌 **Branding & Identidade**: Criamos identidades visuais completas, logos, guidelines de marca e estratégia de posicionamento.\n\n📌 **Web Design & Desenvolvimento**: Desenvolvemos websites modernos, responsivos e otimizados com foco em conversão.\n\n📌 **Marketing Digital**: Implementamos estratégias de marketing, SEO, social media e publicidade digital.\n\nQual serviço te interessa?'
+  },
+  {
+    keywords: ['branding', 'identidade visual', 'logo', 'marca'],
+    response: 'No **Branding & Identidade** criamos:\n✓ Logos profissionais\n✓ Paleta de cores estratégica\n✓ Guidelines e manual de marca\n✓ Design de materiais (cartão, envelope, papel timbrado)\n✓ Estratégia de posicionamento\n\nCada projeto é customizado. Quer agendar uma reunião? WhatsApp: (41) 99895-1738'
+  },
+  {
+    keywords: ['web', 'website', 'site', 'desenvolvimento', 'design web', 'página'],
+    response: 'No **Web Design & Desenvolvimento** oferecemos:\n✓ Websites responsivos (mobile, tablet, desktop)\n✓ Design moderno e intuitivo\n✓ Otimização para SEO\n✓ Integração com ferramentas\n✓ Hospedagem e manutenção\n\nUsamos tecnologias atuais: React, TypeScript, Tailwind CSS. Pronto para criar seu site?'
+  },
+  {
+    keywords: ['marketing', 'digital', 'seo', 'ads', 'publicidade', 'redes sociais', 'social', 'conteúdo'],
+    response: 'Em **Marketing Digital** oferecemos:\n✓ Estratégia de conteúdo e social media\n✓ SEO otimização para Google\n✓ Campanhas de publicidade (Google Ads, Meta Ads)\n✓ Análise de dados e relatórios\n✓ Email marketing\n\nAjudamos sua empresa crescer online com resultados mensuráveis.'
+  },
+  {
+    keywords: ['preço', 'valor', 'custo', 'quanto custa', 'tabela', 'orçamento'],
+    response: 'Os valores variam conforme a complexidade:\n\n🎯 **Branding básico**: A partir de R$ 2.000\n🎯 **Website simples**: A partir de R$ 5.000\n🎯 **Marketing Digital**: A partir de R$ 1.500/mês\n\nCada projeto é único! Oferecemos proposta personalizada. Entre em contato: (41) 99895-1738'
+  },
+  {
+    keywords: ['contato', 'agendar', 'reunião', 'conversar', 'falar', 'como falar', 'telefone', 'email'],
+    response: 'Adoraríamos conversar com você! 📞\n\n📱 **WhatsApp**: (41) 99895-1738\n📧 **Email**: costagavron@gmail.com\n📍 **Localização**: Curitiba, PR\n🕒 **Horário**: Seg-Sex 9h às 18h\n\nVocê pode:\n✓ Enviar mensagem pelo WhatsApp\n✓ Preencher o formulário de contato do site\n✓ Chamar por aqui mesmo!\n\nEstamos prontos para ouvir sua ideia!'
+  },
+  {
+    keywords: ['prazo', 'quanto tempo', 'demora', 'entrega', 'quanto demora'],
+    response: 'Os prazos dependem do escopo:\n\n⏱️ **Logo/Branding**: 2-4 semanas\n⏱️ **Website simples**: 4-8 semanas\n⏱️ **Website complexo**: 8-12 semanas\n⏱️ **Campanha marketing**: inicia em 1 semana\n\nDefinimos prazos realistas para garantir qualidade. Qual projeto você tem em mente?'
+  },
+  {
+    keywords: ['portfólio', 'casos', 'trabalhos', 'projetos', 'exemplos', 'portfolio'],
+    response: 'Confira nossos trabalhos na página **Portfólio** do site! 🎨\n\nLá você encontra:\n✓ Branding completo para agências e startups\n✓ Websites de alto impacto visual\n✓ Campanhas digitais com ótimos resultados\n\nClique em "Portfólio" no menu para ver nossos projetos!'
+  },
+  {
+    keywords: ['onde fica', 'localização', 'endereço', 'curitiba', 'local'],
+    response: 'Somos baseados em **Curitiba, PR**! 🏙️\n\n📍 **Localização**: Curitiba, Paraná, Brasil\n\nTrabalhamos com clientes locais e remotos:\n✓ Reuniões presenciais em Curitiba\n✓ Atendimento remoto via videochamada\n✓ Consultoria online\n\nQuer agendar uma conversa?'
+  },
+  {
+    keywords: ['processo', 'como funciona', 'etapas', 'fluxo', 'metodologia'],
+    response: 'Nosso processo é simples e eficiente:\n\n1️⃣ **Briefing**: Entendemos suas necessidades\n2️⃣ **Proposta**: Apresentamos timeline e investimento\n3️⃣ **Execução**: Desenvolvemos com qualidade\n4️⃣ **Revisões**: Ajustes conforme feedback\n5️⃣ **Entrega**: Projeto finalizado e pronto!\n\nQuero começar! WhatsApp: (41) 99895-1738'
+  },
+  {
+    keywords: ['tecnologia', 'ferramentas', 'stack', 'linguagem'],
+    response: 'Usamos as melhores tecnologias atuais:\n\n💻 **Frontend**: React, TypeScript, Tailwind CSS, Next.js\n⚙️ **Backend**: Node.js, Python, Firebase\n📱 **Mobile**: React Native (quando necessário)\n🎨 **Design**: Figma, Adobe Creative Suite\n🔧 **DevOps**: GitHub, Vercel, AWS\n\nSempre buscamos as melhores soluções para cada projeto!'
+  }
+];
+
 export const FloatingChatBot = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
-
-  const OPENAI_API_KEY = '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';
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -23,7 +69,21 @@ export const FloatingChatBot = () => {
     scrollToBottom();
   }, [messages]);
 
-  const sendMessage = async (e: React.FormEvent) => {
+  const findAnswer = (userInput: string): string => {
+    const lowerInput = userInput.toLowerCase();
+
+    for (const item of knowledgeBase) {
+      for (const keyword of item.keywords) {
+        if (lowerInput.includes(keyword)) {
+          return item.response;
+        }
+      }
+    }
+
+    return 'Ótima pergunta! 🤔\n\nNão tenho uma resposta exata para isso, mas posso ajudar com:\n• Serviços (Branding, Web Design, Marketing)\n• Preços e prazos\n• Como agendar reunião\n• Nosso portfólio\n• Tecnologias que usamos\n\nOu prefere falar com alguém? WhatsApp: (41) 99895-1738';
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!input.trim()) return;
 
@@ -32,66 +92,12 @@ export const FloatingChatBot = () => {
     setInput('');
     setIsLoading(true);
 
-    try {
-      const systemMessage = `Você é um assistente de IA profissional da Costa Gavron, uma agência criativa especializada em Branding, Web Design e Marketing Digital em Curitiba, PR.
-
-INFORMAÇÕES IMPORTANTES:
-- Serviços: Branding & Identidade, Web Design & Desenvolvimento, Marketing Digital
-- Email: costagavron@gmail.com
-- WhatsApp: (41) 99895-1738
-- Localização: Curitiba, PR
-- Horário: Seg-Sex 9h às 18h
-
-Instruções:
-- Responda em português brasileiro, de forma amigável e profissional
-- Seja conciso (máximo 150 palavras)
-- Sempre que apropriado, sugira contato via WhatsApp ou formulário
-- Ofereça soluções criativas e relate expertise em design e marketing`;
-
-      const response = await fetch('https://api.openai.com/v1/chat/completions', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${OPENAI_API_KEY}`
-        },
-        body: JSON.stringify({
-          model: 'gpt-3.5-turbo',
-          messages: [
-            { role: 'system', content: systemMessage },
-            ...messages.concat(userMessage).map(msg => ({
-              role: msg.role === 'user' ? 'user' : 'assistant',
-              content: msg.content
-            }))
-          ],
-          temperature: 0.7,
-          max_tokens: 256
-        })
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        const errorMsg = data.error?.message || 'Erro na API';
-        console.error('Erro OpenAI:', errorMsg, data);
-        throw new Error(errorMsg);
-      }
-
-      if (!data.choices || !data.choices[0] || !data.choices[0].message) {
-        throw new Error('Resposta inválida da API');
-      }
-
-      const assistantMessage = data.choices[0].message.content;
-      setMessages(prev => [...prev, { role: 'assistant', content: assistantMessage }]);
-    } catch (err) {
-      console.error('Erro completo:', err);
-      const errorMsg = err instanceof Error ? err.message : 'Erro desconhecido';
-      setMessages(prev => [...prev, { 
-        role: 'assistant', 
-        content: `Desculpe, tive um problema. Tente novamente ou entre em contato: WhatsApp (41) 99895-1738` 
-      }]);
-    } finally {
+    // Simular pequeno delay para melhor UX
+    setTimeout(() => {
+      const response = findAnswer(input);
+      setMessages(prev => [...prev, { role: 'assistant', content: response }]);
       setIsLoading(false);
-    }
+    }, 300);
   };
 
   return (
@@ -100,7 +106,7 @@ Instruções:
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="fixed bottom-6 right-6 z-50 w-14 h-14 bg-[#C9A962] text-[#0A0A0A] rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-transform"
-        title="Assistente de IA"
+        title="Assistente da Costa Gavron"
       >
         {isOpen ? <X size={24} /> : <MessageCircle size={24} />}
       </button>
@@ -117,8 +123,15 @@ Instruções:
           <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-zinc-50">
             {messages.length === 0 && (
               <div className="text-center">
-                <p className="text-zinc-600 text-sm">👋 Olá! Sou seu assistente de IA.</p>
-                <p className="text-zinc-500 text-xs mt-3">Pergunte-me sobre Branding, Web Design, Marketing Digital ou como nos contactar.</p>
+                <p className="text-zinc-600 text-sm font-semibold">👋 Olá! Bem-vindo!</p>
+                <p className="text-zinc-500 text-xs mt-3">Sou assistente da Costa Gavron. Posso responder suas dúvidas sobre:</p>
+                <div className="text-xs text-zinc-500 mt-3 space-y-1 text-left">
+                  <p>✓ Serviços de Branding, Web Design e Marketing</p>
+                  <p>✓ Preços e prazos</p>
+                  <p>✓ Como agendar uma reunião</p>
+                  <p>✓ Nosso portfólio e tecnologias</p>
+                </div>
+                <p className="text-zinc-400 text-xs mt-4">Digite sua pergunta abaixo!</p>
               </div>
             )}
             {messages.map((msg, idx) => (
@@ -129,7 +142,7 @@ Instruções:
                 <div
                   className={`max-w-xs px-4 py-2 rounded-lg text-sm leading-relaxed whitespace-pre-wrap ${
                     msg.role === 'user'
-                      ? 'bg-[#C9A962] text-[#0A0A0A] rounded-br-none'
+                      ? 'bg-[#C9A962] text-[#0A0A0A] rounded-br-none font-medium'
                       : 'bg-zinc-200 text-zinc-900 rounded-bl-none'
                   }`}
                 >
@@ -148,7 +161,7 @@ Instruções:
           </div>
 
           {/* Input */}
-          <form onSubmit={sendMessage} className="border-t border-zinc-200 p-4 flex gap-2 bg-white">
+          <form onSubmit={handleSubmit} className="border-t border-zinc-200 p-4 flex gap-2 bg-white">
             <input
               type="text"
               value={input}
@@ -172,5 +185,6 @@ Instruções:
 };
 
 export default FloatingChatBot;
+
 
 
