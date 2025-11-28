@@ -8,6 +8,7 @@ import Contact from './pages/Contact';
 import { X } from 'lucide-react';
 import Button from './components/Button';
 import emailjs from '@emailjs/browser';
+import FloatingChatBot from './components/FloatingChatBot';
 
 // Initialize EmailJS
 emailjs.init('zSbkkYshdQuHBTiW3');
@@ -125,6 +126,7 @@ function App() {
         </Routes>
       </Layout>
       <NewsletterPopup />
+      <FloatingChatBot />
     </Router>
   );
 }
