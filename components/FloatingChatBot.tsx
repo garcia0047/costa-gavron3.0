@@ -33,17 +33,35 @@ export const FloatingChatBot = () => {
     setIsLoading(true);
 
     try {
+      const systemPrompt = `Você é um assistente de IA amigável e profissional da Costa Gavron, uma agência especializada em Branding, Web Design e Marketing Digital. 
+      
+Seu objetivo é:
+- Responder perguntas sobre os serviços da Costa Gavron (Branding & Identidade, Web Design & Desenvolvimento, Marketing Digital)
+- Ser educado, conciso e em português brasileiro
+- Oferecer soluções criativas e profissionais
+- Quando apropriado, sugerir que o cliente entre em contato pelo formulário ou WhatsApp (41) 99895-1738
+- Manter um tom amigável mas profissional
+
+Responda sempre de forma clara e breve (máximo 3 parágrafos).`;
+
       const response = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${GEMINI_API_KEY}`,
+        `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`,
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
+            system: {
+              parts: [{ text: systemPrompt }]
+            },
             contents: messages.concat(userMessage).map(msg => ({
               role: msg.role === 'user' ? 'user' : 'model',
               parts: [{ text: msg.content }]
             })),
-            generationConfig: { temperature: 0.7, maxOutputTokens: 256 }
+            generationConfig: { 
+              temperature: 0.7, 
+              maxOutputTokens: 512,
+              topP: 0.8
+            }
           })
         }
       );
@@ -51,14 +69,17 @@ export const FloatingChatBot = () => {
       const data = await response.json();
       
       if (!response.ok) {
-        throw new Error(data.error?.message || 'Erro na API do Gemini');
+        const errorMsg = data.error?.message || JSON.stringify(data);
+        console.error('Erro da API Gemini:', errorMsg);
+        throw new Error(errorMsg);
       }
 
       const assistantMessage = data.candidates?.[0]?.content?.parts?.[0]?.text || 'Desculpe, não consegui processar sua mensagem.';
       setMessages(prev => [...prev, { role: 'assistant', content: assistantMessage }]);
     } catch (err) {
       console.error('Erro ao enviar para Gemini:', err);
-      setMessages(prev => [...prev, { role: 'assistant', content: 'Desculpe, houve um erro. Tente novamente mais tarde.' }]);
+      const errorMsg = err instanceof Error ? err.message : 'Erro desconhecido';
+      setMessages(prev => [...prev, { role: 'assistant', content: `Desculpe, houve um erro: ${errorMsg}. Por favor, tente novamente ou entre em contato conosco pelo WhatsApp (41) 99895-1738.` }]);
     } finally {
       setIsLoading(false);
     }
