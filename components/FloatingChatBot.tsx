@@ -13,7 +13,7 @@ export const FloatingChatBot = () => {
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  const GEMINI_API_KEY = 'AIzaSyCM_q6EP5OwedretmXlFjoobnILrC55jMs';
+  const OPENAI_API_KEY = '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';
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -33,7 +33,7 @@ export const FloatingChatBot = () => {
     setIsLoading(true);
 
     try {
-      const systemPrompt = `Você é um assistente de IA profissional da Costa Gavron, uma agência criativa especializada em Branding, Web Design e Marketing Digital em Curitiba, PR.
+      const systemMessage = `Você é um assistente de IA profissional da Costa Gavron, uma agência criativa especializada em Branding, Web Design e Marketing Digital em Curitiba, PR.
 
 INFORMAÇÕES IMPORTANTES:
 - Serviços: Branding & Identidade, Web Design & Desenvolvimento, Marketing Digital
@@ -48,43 +48,39 @@ Instruções:
 - Sempre que apropriado, sugira contato via WhatsApp ou formulário
 - Ofereça soluções criativas e relate expertise em design e marketing`;
 
-      const response = await fetch(
-        `https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent?key=${GEMINI_API_KEY}`,
-        {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            contents: [
-              {
-                parts: [
-                  { text: systemPrompt },
-                  { text: `Histórico da conversa:\n${messages.concat(userMessage).map(m => `${m.role === 'user' ? 'Cliente' : 'Assistente'}: ${m.content}`).join('\n')}` }
-                ]
-              }
-            ],
-            generationConfig: {
-              temperature: 0.7,
-              maxOutputTokens: 256,
-              topP: 0.95,
-              topK: 40
-            }
-          })
-        }
-      );
+      const response = await fetch('https://api.openai.com/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${OPENAI_API_KEY}`
+        },
+        body: JSON.stringify({
+          model: 'gpt-3.5-turbo',
+          messages: [
+            { role: 'system', content: systemMessage },
+            ...messages.concat(userMessage).map(msg => ({
+              role: msg.role === 'user' ? 'user' : 'assistant',
+              content: msg.content
+            }))
+          ],
+          temperature: 0.7,
+          max_tokens: 256
+        })
+      });
 
       const data = await response.json();
 
       if (!response.ok) {
         const errorMsg = data.error?.message || 'Erro na API';
-        console.error('Erro Gemini:', errorMsg, data);
+        console.error('Erro OpenAI:', errorMsg, data);
         throw new Error(errorMsg);
       }
 
-      if (!data.candidates || !data.candidates[0] || !data.candidates[0].content) {
+      if (!data.choices || !data.choices[0] || !data.choices[0].message) {
         throw new Error('Resposta inválida da API');
       }
 
-      const assistantMessage = data.candidates[0].content.parts[0].text;
+      const assistantMessage = data.choices[0].message.content;
       setMessages(prev => [...prev, { role: 'assistant', content: assistantMessage }]);
     } catch (err) {
       console.error('Erro completo:', err);
@@ -176,4 +172,5 @@ Instruções:
 };
 
 export default FloatingChatBot;
+
 
