@@ -33,8 +33,8 @@ export const FloatingChatBot = () => {
     setIsLoading(true);
 
     try {
-      const systemPrompt = `Você é um assistente de IA amigável e profissional da Costa Gavron, uma agência especializada em Branding, Web Design e Marketing Digital. 
-      
+      const systemPrompt = `Você é um assistente de IA amigável e profissional da Costa Gavron, uma agência especializada em Branding, Web Design e Marketing Digital.
+
 Seu objetivo é:
 - Responder perguntas sobre os serviços da Costa Gavron (Branding & Identidade, Web Design & Desenvolvimento, Marketing Digital)
 - Ser educado, conciso e em português brasileiro
@@ -57,8 +57,8 @@ Responda sempre de forma clara e breve (máximo 3 parágrafos).`;
               role: msg.role === 'user' ? 'user' : 'model',
               parts: [{ text: msg.content }]
             })),
-            generationConfig: { 
-              temperature: 0.7, 
+            generationConfig: {
+              temperature: 0.7,
               maxOutputTokens: 512,
               topP: 0.8
             }
@@ -67,7 +67,7 @@ Responda sempre de forma clara e breve (máximo 3 parágrafos).`;
       );
 
       const data = await response.json();
-      
+
       if (!response.ok) {
         const errorMsg = data.error?.message || JSON.stringify(data);
         console.error('Erro da API Gemini:', errorMsg);
