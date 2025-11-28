@@ -6,52 +6,14 @@ interface Message {
   content: string;
 }
 
-// FAQ responses - knowledge base
-const faqDatabase = [
-  {
-    keywords: ['serviço', 'serviços', 'o que vocês fazem', 'qual é o escopo'],
-    response: 'A Costa Gavron oferece três principais serviços:\n\n📌 Branding & Identidade: Criamos identidades visuais completas, logos, guidelines de marca e estratégia de posicionamento.\n\n📌 Web Design & Desenvolvimento: Desenvolvemos websites modernos e responsivos com foco em UX/UI e conversão.\n\n📌 Marketing Digital: Implementamos estratégias de marketing, SEO, social media e publicidade digital.\n\nQual serviço te interessa?'
-  },
-  {
-    keywords: ['branding', 'identidade visual', 'logo', 'marca'],
-    response: 'No serviço de Branding & Identidade, criamos:\n✓ Logos e identidade visual\n✓ Paleta de cores estratégica\n✓ Guidelines de marca\n✓ Design de materiais (cartão, envelope, etc.)\n\nTodo projeto é customizado para sua empresa. Quer saber mais detalhes ou o valor?'
-  },
-  {
-    keywords: ['web', 'website', 'site', 'desenvolvimento', 'design web'],
-    response: 'Nosso serviço de Web Design & Desenvolvimento inclui:\n✓ Websites responsivos (mobile, tablet, desktop)\n✓ Design moderno e intuitivo\n✓ Otimização para SEO\n✓ Integração com ferramentas (formulários, chat, etc.)\n✓ Hospedagem e manutenção\n\nOs sites são desenvolvidos com tecnologias atuais como React, TypeScript e Tailwind CSS. Interessado em criar seu site?'
-  },
-  {
-    keywords: ['marketing', 'digital', 'seo', 'ads', 'publicidade', 'redes sociais', 'social'],
-    response: 'Em Marketing Digital, oferecemos:\n✓ Estratégia de conteúdo e social media\n✓ Otimização SEO (Google)\n✓ Campanhas de publicidade (Google Ads, Meta Ads)\n✓ Análise de dados e relatórios\n✓ Email marketing\n\nAjudamos sua empresa a crescer online com resultados mensuráveis.'
-  },
-  {
-    keywords: ['preço', 'valor', 'custo', 'quanto custa', 'tabela', 'orçamento'],
-    response: 'Os valores variam conforme a complexidade do projeto:\n\n🎯 Branding básico: A partir de R$ 2.000\n🎯 Website simples: A partir de R$ 5.000\n🎯 Campanhas de marketing: A partir de R$ 1.500/mês\n\nCada projeto é único, então oferecemos uma proposta personalizada. Prefere agendar uma reunião? Entre em contato: (41) 99895-1738 ou pelo formulário de contato.'
-  },
-  {
-    keywords: ['contato', 'agendar', 'reunião', 'conversar', 'falar'],
-    response: 'Adoraríamos conversar com você! 📞\n\n📱 WhatsApp: (41) 99895-1738\n📧 Email: costagavron@gmail.com\n📍 Localização: Curitiba, PR\n🕒 Seg-Sex: 9h às 18h\n\nVocê pode:\n✓ Enviar uma mensagem pelo WhatsApp\n✓ Preencher o formulário de contato do site\n✓ Nos chamar por aqui mesmo!\n\nEstamos prontos para ouvir sua ideia!'
-  },
-  {
-    keywords: ['prazo', 'quanto tempo', 'demora', 'entrega'],
-    response: 'Os prazos dependem do escopo:\n\n⏱️ Logo/Branding: 2-4 semanas\n⏱️ Website simples: 4-8 semanas\n⏱️ Website complexo: 8-12 semanas\n⏱️ Campanha de marketing: inicia em 1 semana\n\nDefinimos prazos realistas na proposta para garantir qualidade. Qual projeto você tem em mente?'
-  },
-  {
-    keywords: ['portfólio', 'casos', 'trabalhos', 'projetos'],
-    response: 'Você pode ver nossos trabalhos na página Portfólio do site! 🎨\n\nLá estão alguns dos projetos que fizemos:\n✓ Branding completo para agências e startups\n✓ Websites de alto impacto visual\n✓ Campanhas digitais com ótimos resultados\n\nClique em "Portfólio" no menu para conferir!'
-  },
-  {
-    keywords: ['onde fica', 'localização', 'endereço', 'curitiba'],
-    response: 'Somos baseados em Curitiba, PR! 🏙️\n\n📍 Localização: Curitiba, State of Paraná\n\nTrabalhamos com clientes locais e remotos. Oferecemos:\n✓ Reuniões presenciais em Curitiba\n✓ Atendimento remoto via videochamada\n✓ Consultoria online\n\nQuer agendar uma conversa?'
-  }
-];
-
 export const FloatingChatBot = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  const GEMINI_API_KEY = 'AIzaSyCM_q6EP5OwedretmXlFjoobnILrC55jMs';
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -61,21 +23,7 @@ export const FloatingChatBot = () => {
     scrollToBottom();
   }, [messages]);
 
-  const findResponse = (userInput: string): string => {
-    const lowerInput = userInput.toLowerCase();
-    
-    for (const faq of faqDatabase) {
-      for (const keyword of faq.keywords) {
-        if (lowerInput.includes(keyword)) {
-          return faq.response;
-        }
-      }
-    }
-    
-    return 'Desculpe, não encontrei uma resposta específica para sua pergunta. 🤔\n\nPosso ajudar com informações sobre:\n• Nossos serviços (Branding, Web Design, Marketing Digital)\n• Preços e prazos\n• Como agendar uma reunião\n• Nosso portfólio\n\nOu prefere falar com alguém? WhatsApp: (41) 99895-1738';
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
+  const sendMessage = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!input.trim()) return;
 
@@ -84,12 +32,70 @@ export const FloatingChatBot = () => {
     setInput('');
     setIsLoading(true);
 
-    // Simulate a small delay for better UX
-    setTimeout(() => {
-      const response = findResponse(input);
-      setMessages(prev => [...prev, { role: 'assistant', content: response }]);
+    try {
+      const systemPrompt = `Você é um assistente de IA profissional da Costa Gavron, uma agência criativa especializada em Branding, Web Design e Marketing Digital em Curitiba, PR.
+
+INFORMAÇÕES IMPORTANTES:
+- Serviços: Branding & Identidade, Web Design & Desenvolvimento, Marketing Digital
+- Email: costagavron@gmail.com
+- WhatsApp: (41) 99895-1738
+- Localização: Curitiba, PR
+- Horário: Seg-Sex 9h às 18h
+
+Instruções:
+- Responda em português brasileiro, de forma amigável e profissional
+- Seja conciso (máximo 150 palavras)
+- Sempre que apropriado, sugira contato via WhatsApp ou formulário
+- Ofereça soluções criativas e relate expertise em design e marketing`;
+
+      const response = await fetch(
+        `https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent?key=${GEMINI_API_KEY}`,
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            contents: [
+              {
+                parts: [
+                  { text: systemPrompt },
+                  { text: `Histórico da conversa:\n${messages.concat(userMessage).map(m => `${m.role === 'user' ? 'Cliente' : 'Assistente'}: ${m.content}`).join('\n')}` }
+                ]
+              }
+            ],
+            generationConfig: {
+              temperature: 0.7,
+              maxOutputTokens: 256,
+              topP: 0.95,
+              topK: 40
+            }
+          })
+        }
+      );
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        const errorMsg = data.error?.message || 'Erro na API';
+        console.error('Erro Gemini:', errorMsg, data);
+        throw new Error(errorMsg);
+      }
+
+      if (!data.candidates || !data.candidates[0] || !data.candidates[0].content) {
+        throw new Error('Resposta inválida da API');
+      }
+
+      const assistantMessage = data.candidates[0].content.parts[0].text;
+      setMessages(prev => [...prev, { role: 'assistant', content: assistantMessage }]);
+    } catch (err) {
+      console.error('Erro completo:', err);
+      const errorMsg = err instanceof Error ? err.message : 'Erro desconhecido';
+      setMessages(prev => [...prev, { 
+        role: 'assistant', 
+        content: `Desculpe, tive um problema. Tente novamente ou entre em contato: WhatsApp (41) 99895-1738` 
+      }]);
+    } finally {
       setIsLoading(false);
-    }, 500);
+    }
   };
 
   return (
@@ -115,14 +121,8 @@ export const FloatingChatBot = () => {
           <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-zinc-50">
             {messages.length === 0 && (
               <div className="text-center">
-                <p className="text-zinc-600 text-sm">👋 Olá! Bem-vindo à Costa Gavron!</p>
-                <p className="text-zinc-500 text-xs mt-3">Posso ajudar com informações sobre nossos serviços, preços, prazos ou como agendar uma reunião.</p>
-                <p className="text-zinc-400 text-xs mt-3 font-semibold">Pergunte-me sobre:</p>
-                <div className="text-xs text-zinc-500 mt-2 space-y-1">
-                  <p>• Serviços e portfólio</p>
-                  <p>• Preços e prazos</p>
-                  <p>• Como contactar</p>
-                </div>
+                <p className="text-zinc-600 text-sm">👋 Olá! Sou seu assistente de IA.</p>
+                <p className="text-zinc-500 text-xs mt-3">Pergunte-me sobre Branding, Web Design, Marketing Digital ou como nos contactar.</p>
               </div>
             )}
             {messages.map((msg, idx) => (
@@ -152,7 +152,7 @@ export const FloatingChatBot = () => {
           </div>
 
           {/* Input */}
-          <form onSubmit={handleSubmit} className="border-t border-zinc-200 p-4 flex gap-2 bg-white">
+          <form onSubmit={sendMessage} className="border-t border-zinc-200 p-4 flex gap-2 bg-white">
             <input
               type="text"
               value={input}
