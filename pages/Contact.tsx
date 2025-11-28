@@ -11,14 +11,58 @@ const Contact = () => {
     service: '',
     message: ''
   });
+  const [isLoading, setIsLoading] = useState(false);
+  const [statusMessage, setStatusMessage] = useState('');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData({...formData, [e.target.name]: e.target.value});
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    alert("Obrigado pelo contato! Nossa equipe entrará em contato em até 24 horas.");
+
+    // Basic validation
+    if (!formData.name || !formData.email || !formData.message) {
+      setStatusMessage('Por favor, preencha nome, e-mail e mensagem.');
+      return;
+    }
+
+    setIsLoading(true);
+    setStatusMessage('');
+
+    try {
+      const res = await fetch('https://api.emailjs.com/api/v1.0/email/send', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          service_id: 'service_7n2xmhb',
+          template_id: 'template_ey44ho9',
+          user_id: 'zSbkkYshdQuHBTiW3',
+          template_params: {
+            to_email: 'costagavron@gmail.com',
+            name: formData.name,
+            email: formData.email,
+            company: formData.company,
+            phone: formData.phone,
+            service: formData.service,
+            message: formData.message,
+          }
+        })
+      });
+
+      if (!res.ok) {
+        const text = await res.text();
+        throw new Error(text || 'Erro no envio');
+      }
+
+      setStatusMessage('✓ Mensagem enviada! Verifique seu e-mail em breve.');
+      setFormData({ name: '', email: '', company: '', phone: '', service: '', message: '' });
+    } catch (err) {
+      console.error('Erro ao enviar formulário de contato:', err);
+      setStatusMessage('Erro ao enviar. Tente novamente mais tarde.');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -204,9 +248,12 @@ const Contact = () => {
                   ></textarea>
                 </div>
 
-                <Button type="submit" className="w-full gold-gradient !text-[#0A0A0A] font-bold border-none py-4 text-base rounded-full hover:scale-[1.01] shadow-lg">
-                  Enviar Mensagem <Send size={18} className="ml-2" />
+                <Button type="submit" className="w-full gold-gradient !text-[#0A0A0A] font-bold border-none py-4 text-base rounded-full hover:scale-[1.01] shadow-lg" disabled={isLoading}>
+                  {isLoading ? 'Enviando...' : 'Enviar Mensagem'} <Send size={18} className="ml-2" />
                 </Button>
+                {statusMessage && (
+                  <p className={`text-center text-xs mt-4 ${statusMessage.includes('✓') ? 'text-green-400' : 'text-red-400'}`}>{statusMessage}</p>
+                )}
                 <p className="text-center text-xs text-zinc-400 mt-4">Ao enviar, você concorda com nossa política de privacidade.</p>
               </form>
             </div>
