@@ -15,6 +15,29 @@ export const FloatingChatBot = () => {
 
   const GEMINI_API_KEY = 'AIzaSyBTA2KF-5DtPi_QD3eVF3_Ij5PYdbDnFoA';
 
+  // Sistema de FAQ local como fallback
+  const getFallbackResponse = (question: string): string => {
+    const q = question.toLowerCase();
+    
+    if (q.includes('preço') || q.includes('valor') || q.includes('quanto custa') || q.includes('plano')) {
+      return `💰 **Nossos Planos:**\n\n📦 **Start Social** - R$ 600 a R$ 900/mês\n• 8 posts + 12 stories mensais\n• Ideal para quem está começando\n\n🚀 **Growth Performance** - R$ 1.200/mês\n• Tudo do Start + Gestão de Meta Ads\n• Até 2 campanhas mensais\n\n⭐ **Authority Max** - R$ 1.800 a R$ 2.500/mês\n• 12-16 posts + 20 stories\n• Landing Page + Copywriting\n• Suporte prioritário\n\n📱 Para um orçamento personalizado: (41) 99895-1738`;
+    }
+    
+    if (q.includes('serviço') || q.includes('o que faz') || q.includes('trabalha')) {
+      return `🎨 **Nossos Serviços:**\n\n• Branding & Identidade Visual\n• Web Design & Desenvolvimento\n• Gestão de Mídias Sociais\n• Marketing Digital Estratégico\n• Tráfego Pago (Meta Ads)\n• Landing Pages\n\n💬 Quer saber mais sobre algum serviço específico? Me pergunte ou fale direto no WhatsApp: (41) 99895-1738`;
+    }
+    
+    if (q.includes('contato') || q.includes('whatsapp') || q.includes('falar') || q.includes('telefone')) {
+      return `📱 **Entre em contato:**\n\nWhatsApp: (41) 99895-1738\n🌐 Site: costa-gavron.com\n\nEstamos prontos para atender você! 🚀`;
+    }
+    
+    if (q.includes('oi') || q.includes('olá') || q.includes('hello') || q.includes('hi')) {
+      return `👋 Olá! Bem-vindo à Costa Gavron!\n\nSomos uma agência especializada em marketing digital e branding. Como posso ajudar você hoje?\n\n💡 Posso falar sobre:\n• Nossos serviços\n• Planos e preços\n• Como podemos ajudar seu negócio\n\nOu se preferir, fale direto no WhatsApp: (41) 99895-1738`;
+    }
+    
+    return `Obrigado pela sua mensagem! 😊\n\nPara melhor atendê-lo, entre em contato:\n\n📱 WhatsApp: (41) 99895-1738\n🌐 Site: costa-gavron.com\n\nOu me pergunte sobre:\n• Serviços\n• Planos e preços\n• Branding e Marketing Digital`;
+  };
+
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
@@ -61,10 +84,12 @@ Responda de forma amigável, profissional e objetiva. Se perguntarem sobre preç
 PERGUNTA DO CLIENTE: ${input}`;
 
       const response = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`,
+        `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${GEMINI_API_KEY}`,
         {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: { 
+            'Content-Type': 'application/json',
+          },
           body: JSON.stringify({
             contents: [{
               parts: [{ text: context }]
@@ -72,25 +97,52 @@ PERGUNTA DO CLIENTE: ${input}`;
             generationConfig: {
               temperature: 0.7,
               maxOutputTokens: 500,
-            }
+            },
+            safetySettings: [
+              {
+                category: "HARM_CATEGORY_HARASSMENT",
+                threshold: "BLOCK_NONE"
+              },
+              {
+                category: "HARM_CATEGORY_HATE_SPEECH",
+                threshold: "BLOCK_NONE"
+              },
+              {
+                category: "HARM_CATEGORY_SEXUALLY_EXPLICIT",
+                threshold: "BLOCK_NONE"
+              },
+              {
+                category: "HARM_CATEGORY_DANGEROUS_CONTENT",
+                threshold: "BLOCK_NONE"
+              }
+            ]
           })
         }
       );
 
+      if (!response.ok) {
+        const errorData = await response.json();
+        console.error('API Error:', errorData);
+        throw new Error(errorData.error?.message || `HTTP ${response.status}`);
+      }
+
       const data = await response.json();
       console.log('Gemini response:', data);
 
-      if (response.ok && data.candidates?.[0]?.content?.parts?.[0]?.text) {
+      if (data.candidates?.[0]?.content?.parts?.[0]?.text) {
         const assistantMessage = data.candidates[0].content.parts[0].text;
         setMessages(prev => [...prev, { role: 'assistant', content: assistantMessage }]);
       } else {
-        throw new Error(data.error?.message || 'Erro na API');
+        throw new Error('Resposta inválida da API');
       }
-    } catch (err) {
+    } catch (err: any) {
       console.error('Erro Gemini:', err);
+      
+      // Usa fallback local em caso de erro
+      const fallbackResponse = getFallbackResponse(input);
       setMessages(prev => [...prev, { 
         role: 'assistant', 
-        content: '❌ Desculpe, estou com problemas técnicos no momento.\n\n📱 Entre em contato direto pelo WhatsApp: (41) 99895-1738\n\nTeremos prazer em atendê-lo!' 
+        content: fallbackResponse
       }]);
     } finally {
       setIsLoading(false);
