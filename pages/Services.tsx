@@ -182,8 +182,8 @@ const Services = () => {
                  key={idx} 
                  className={`relative rounded-[2rem] p-10 transition-all duration-300 h-full flex flex-col ${
                    plan.highlight 
-                     ? 'bg-[#0A0A0A] text-white shadow-2xl scale-105 z-10 border border-zinc-800' 
-                     : 'bg-white text-[#0A0A0A] shadow-xl border border-zinc-100 hover:shadow-2xl'
+                     ? 'bg-[#0A0A0A] text-white shadow-2xl scale-105 z-10 border border-zinc-800 ring-1 ring-[#D4B978]/40' 
+                     : 'bg-white text-[#0A0A0A] shadow-xl border border-zinc-100 hover:shadow-2xl hover:-translate-y-1 ring-1 ring-transparent hover:ring-[#D4B978]/40'
                  }`}
                >
                  {plan.highlight && (
@@ -226,11 +226,11 @@ const Services = () => {
                    <button 
                      className={`w-full py-4 rounded-full font-bold text-sm transition-all flex items-center justify-center gap-2 ${
                        plan.highlight 
-                         ? 'gold-gradient text-[#0A0A0A] hover:opacity-90' 
-                         : 'bg-transparent border border-[#0A0A0A] text-[#0A0A0A] hover:bg-[#0A0A0A] hover:text-white'
+                         ? 'gold-gradient text-[#0A0A0A] hover:opacity-90 hover:-translate-y-0.5 hover:shadow-[0_12px_30px_rgba(201,169,98,0.35)]' 
+                         : 'bg-transparent border border-[#C9A962] text-[#0A0A0A] hover:bg-[#C9A962] hover:text-[#0A0A0A] hover:-translate-y-0.5'
                      }`}
                    >
-                     Solicitar Orçamento <ArrowRight size={16} />
+                     Contratar Agora <ArrowRight size={16} />
                    </button>
                  </a>
                </div>
