@@ -58,11 +58,12 @@ Crie `.env.local` na raiz (não comite) com:
 VITE_EMAILJS_PUBLIC_KEY=seu_public_key
 VITE_EMAILJS_SERVICE_ID=service_XXXX
 VITE_EMAILJS_TEMPLATE_ID=template_XXXX
-# Opcional
-GEMINI_API_KEY=...
+VITE_GEMINI_API_KEY=sua_chave_gemini
 ```
 
-O app lê via `import.meta.env.*` em `App.tsx`. As chaves anteriores hardcoded foram migradas para env.
+O app lê via `import.meta.env.*` em `App.tsx` e `FloatingChatBot.tsx`. 
+
+**No Vercel:** Configure as mesmas variáveis em Settings → Environment Variables para produção.
 
 ## Notas de segurança
 

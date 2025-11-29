@@ -13,7 +13,7 @@ export const FloatingChatBot = () => {
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  const GEMINI_API_KEY = 'AIzaSyBTA2KF-5DtPi_QD3eVF3_Ij5PYdbDnFoA';
+  const GEMINI_API_KEY = import.meta.env.VITE_GEMINI_API_KEY || 'AIzaSyAT063g63ypOffOhgF-lg3JClwNPa9TtEE';
 
   // Sistema de FAQ local como fallback
   const getFallbackResponse = (question: string): string => {
