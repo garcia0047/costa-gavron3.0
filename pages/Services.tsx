@@ -1,64 +1,30 @@
 import React from 'react';
 import Button from '../components/Button';
 import { Link } from 'react-router-dom';
-import { Check, CheckCircle2, ArrowRight, Share2, Globe, TrendingUp } from 'lucide-react';
+import { Check, CheckCircle2, ArrowRight, Share2, Globe, TrendingUp, Palette, Play } from 'lucide-react';
 
 const Services = () => {
-  const servicesList = [
+  // Serviços Avulsos
+  const avulsoItems = [
     {
-      title: "Branding & Identidade Visual",
-      popular: true,
-      description: "Construímos marcas memoráveis que comunicam a essência do seu negócio e geram autoridade no mercado.",
-      features: [
-        "Logo & Manual de Marca",
-        "Papelaria Corporativa",
-        "Estratégia de Posicionamento",
-        "Naming & Tagline",
-        "Aplicações de Marca"
-      ],
-      icon: "🎨" // Using emoji as placeholder logic, but rendered with Lucide below for others or specific styling
+      title: 'Identidade Visual',
+      price: 'R$ 150 a R$ 350',
+      icon: <Palette className="w-7 h-7 text-[#0A0A0A]" />
     },
     {
-      title: "Web Design & Desenvolvimento",
-      popular: false,
-      description: "Sites modernos, responsivos e otimizados para conversão que transformam visitantes em clientes.",
-      features: [
-        "Landing Pages de Alta Conversão",
-        "Sites Institucionais",
-        "E-commerce Completo",
-        "Design Responsivo (Mobile-first)",
-        "Otimização SEO On-page",
-        "Integração com Analytics"
-      ],
-      icon: <Globe className="w-8 h-8 text-[#0A0A0A]" strokeWidth={1.5} />
+      title: 'Landing Page',
+      price: 'R$ 300 a R$ 600',
+      icon: <Globe className="w-7 h-7 text-[#0A0A0A]" />
     },
     {
-      title: "Gestão de Mídias Sociais",
-      popular: false,
-      description: "Estratégia completa de conteúdo e gerenciamento de redes sociais que engaja e gera resultados.",
-      features: [
-        "Planejamento de Conteúdo Mensal",
-        "Design de Posts e Stories",
-        "Calendário Editorial",
-        "Gestão de Comunidade",
-        "Relatórios de Performance",
-        "Estratégia de Hashtags"
-      ],
-      icon: <Share2 className="w-8 h-8 text-[#0A0A0A]" strokeWidth={1.5} />
+      title: 'Criativos p/ Anúncios',
+      price: 'R$ 40 a R$ 90',
+      icon: <TrendingUp className="w-7 h-7 text-[#0A0A0A]" />
     },
     {
-      title: "Marketing Digital Estratégico",
-      popular: false,
-      description: "Campanhas digitais que aumentam sua visibilidade e geram leads qualificados para seu negócio.",
-      features: [
-        "Estratégia de SEO Completa",
-        "Campanhas Google Ads",
-        "Facebook & Instagram Ads",
-        "Email Marketing Automatizado",
-        "Funis de Conversão",
-        "Análise de ROI"
-      ],
-      icon: <TrendingUp className="w-8 h-8 text-[#0A0A0A]" strokeWidth={1.5} />
+      title: 'Reels Editado',
+      price: 'R$ 50 a R$ 120',
+      icon: <Play className="w-7 h-7 text-[#0A0A0A]" />
     }
   ];
 
@@ -130,37 +96,22 @@ const Services = () => {
       </div>
 
       <div className="container mx-auto px-6 py-16 relative z-20">
-        {/* Services List Grid */}
-        <div className="grid lg:grid-cols-2 gap-8 max-w-6xl mx-auto mb-32">
-          {servicesList.map((service, idx) => (
-            <div key={idx} className="bg-white p-10 md:p-12 rounded-[2.5rem] shadow-lg flex flex-col border border-zinc-100 hover:shadow-2xl transition-all duration-300">
-              
-              <div className="mb-8">
-                 {/* Gold Icon Box */}
-                 <div className="w-16 h-16 rounded-2xl mb-8 flex items-center justify-center bg-[#D4B978] shadow-md">
-                   {/* Handle explicit icon vs placeholder */}
-                   {typeof service.icon === 'string' ? (
-                      <span className="text-2xl">{service.icon}</span>
-                   ) : (
-                      service.icon
-                   )}
-                 </div>
-                 
-                 <h3 className="text-3xl font-bold text-[#0A0A0A] mb-4">{service.title}</h3>
-                 <p className="text-zinc-500 text-lg leading-relaxed">
-                   {service.description}
-                 </p>
-              </div>
-              
-              <div className="flex-grow">
-                 <div className="grid md:grid-cols-2 gap-4 mb-10">
-                  {service.features.map((feature, fIdx) => (
-                    <li key={fIdx} className="flex items-start text-zinc-600 text-sm list-none">
-                      <Check size={18} className="text-[#C9A962] mr-3 mt-0.5 flex-shrink-0" strokeWidth={3} />
-                      {feature}
-                    </li>
-                  ))}
+        {/* Serviços Avulsos */}
+        <div className="text-center mb-10">
+          <span className="bg-[#F5F5F0] text-[#C9A962] px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wide inline-block">Serviços Avulsos</span>
+          <p className="text-zinc-500 max-w-2xl mx-auto mt-4">Escolha exatamente o que precisa, quando precisa.</p>
+        </div>
+        <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto mb-32">
+          {avulsoItems.map((item, idx) => (
+            <div key={idx} className="bg-white p-8 rounded-[2rem] shadow-lg border border-zinc-100 hover:shadow-2xl transition-all duration-300 flex items-center justify-between">
+              <div className="flex items-center gap-5">
+                <div className="w-12 h-12 rounded-2xl flex items-center justify-center bg-[#D4B978] shadow-sm">
+                  {item.icon}
                 </div>
+                <h3 className="text-xl font-bold text-[#0A0A0A]">{item.title}</h3>
+              </div>
+              <div className="text-right">
+                <p className="text-[#C9A962] font-extrabold">{item.price}</p>
               </div>
             </div>
           ))}
