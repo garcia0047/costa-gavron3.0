@@ -33,16 +33,46 @@ export const FloatingChatBot = () => {
     setIsLoading(true);
 
     try {
-      // Try Gemini API - simplest possible request
+      // Contexto da Costa Gavron
+      const context = `Você é um assistente virtual da Costa Gavron, uma agência de marketing digital e branding premium. 
+
+SOBRE A COSTA GAVRON:
+- Especializada em Branding, Web Design, Gestão de Mídias Sociais e Marketing Digital
+- Foco em construir marcas memoráveis e gerar resultados reais
+- Atendimento premium e personalizado
+
+SERVIÇOS PRINCIPAIS:
+1. Branding & Identidade Visual (logos, manual de marca, posicionamento)
+2. Web Design & Desenvolvimento (landing pages, sites institucionais, e-commerce)
+3. Gestão de Mídias Sociais (conteúdo estratégico, design de posts e stories)
+4. Marketing Digital (SEO, Google Ads, Facebook/Instagram Ads, funis de conversão)
+
+PLANOS:
+- Start Social: R$ 600-900/mês (8 posts + 12 stories)
+- Growth Performance: R$ 1.200/mês (inclui gestão de Meta Ads)
+- Authority Max: R$ 1.800-2.500/mês (12-16 posts + 20 stories + landing page)
+
+CONTATO:
+- WhatsApp: (41) 99895-1738
+- Site: costa-gavron.com
+
+Responda de forma amigável, profissional e objetiva. Se perguntarem sobre preços, mencione os planos. Incentive o contato via WhatsApp para orçamentos personalizados.
+
+PERGUNTA DO CLIENTE: ${input}`;
+
       const response = await fetch(
-        `https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent?key=${GEMINI_API_KEY}`,
+        `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`,
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             contents: [{
-              parts: [{ text: input }]
-            }]
+              parts: [{ text: context }]
+            }],
+            generationConfig: {
+              temperature: 0.7,
+              maxOutputTokens: 500,
+            }
           })
         }
       );
@@ -54,13 +84,13 @@ export const FloatingChatBot = () => {
         const assistantMessage = data.candidates[0].content.parts[0].text;
         setMessages(prev => [...prev, { role: 'assistant', content: assistantMessage }]);
       } else {
-        throw new Error(data.error?.message || 'Erro na API Gemini');
+        throw new Error(data.error?.message || 'Erro na API');
       }
     } catch (err) {
       console.error('Erro Gemini:', err);
       setMessages(prev => [...prev, { 
         role: 'assistant', 
-        content: '❌ Erro ao conectar com Gemini. Verifique se a API key é válida.\n\nContato direto: WhatsApp (41) 99895-1738' 
+        content: '❌ Desculpe, estou com problemas técnicos no momento.\n\n📱 Entre em contato direto pelo WhatsApp: (41) 99895-1738\n\nTeremos prazer em atendê-lo!' 
       }]);
     } finally {
       setIsLoading(false);
@@ -83,16 +113,21 @@ export const FloatingChatBot = () => {
         <div className="fixed bottom-24 right-6 z-50 w-96 h-[500px] bg-white rounded-2xl shadow-2xl flex flex-col border border-zinc-200 overflow-hidden">
           {/* Header */}
           <div className="bg-[#C9A962] text-[#0A0A0A] p-4 font-bold text-center">
-            Costa Gavron AI (Gemini)
+            🤖 Assistente Costa Gavron
           </div>
 
           {/* Mensagens */}
           <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-zinc-50">
             {messages.length === 0 && (
-              <div className="text-center">
-                <p className="text-zinc-600 text-sm font-semibold">✨ Gemini AI</p>
-                <p className="text-zinc-500 text-xs mt-3">Powered by Google Gemini</p>
-                <p className="text-zinc-400 text-xs mt-3">Faça suas perguntas sobre a Costa Gavron!</p>
+              <div className="text-center py-8">
+                <p className="text-zinc-600 text-sm font-semibold mb-2">✨ Olá! Sou o assistente virtual da Costa Gavron</p>
+                <p className="text-zinc-500 text-xs mt-3 leading-relaxed">
+                  Posso ajudar com informações sobre:<br/>
+                  • Nossos serviços<br/>
+                  • Planos e preços<br/>
+                  • Como podemos ajudar seu negócio
+                </p>
+                <p className="text-zinc-400 text-xs mt-4">💬 Faça sua pergunta abaixo!</p>
               </div>
             )}
             {messages.map((msg, idx) => (
