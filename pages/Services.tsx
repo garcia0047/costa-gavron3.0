@@ -4,27 +4,49 @@ import { Link } from 'react-router-dom';
 import { Check, CheckCircle2, ArrowRight, Share2, Globe, TrendingUp, Palette, Play } from 'lucide-react';
 
 const Services = () => {
-  // Serviços Avulsos
-  const avulsoItems = [
+  // Serviços Avulsos (agrupados + microdescrições)
+  const avulsoSections = [
     {
-      title: 'Identidade Visual',
-      price: 'R$ 150 a R$ 350',
-      icon: <Palette className="w-7 h-7 text-[#0A0A0A]" />
+      group: 'Identidade & Branding',
+      icon: <Palette className="w-5 h-5 text-[#0A0A0A]" />,
+      items: [
+        {
+          title: 'Identidade Visual',
+          desc: 'Sua marca com logo profissional.',
+          price: 'R$ 150 a R$ 350',
+          icon: <Palette className="w-6 h-6 text-[#0A0A0A]" />
+        }
+      ]
     },
     {
-      title: 'Landing Page',
-      price: 'R$ 300 a R$ 600',
-      icon: <Globe className="w-7 h-7 text-[#0A0A0A]" />
+      group: 'Construção de Ativos Digitais',
+      icon: <Globe className="w-5 h-5 text-[#0A0A0A]" />,
+      items: [
+        {
+          title: 'Landing Page',
+          desc: 'Página otimizada para conversão.',
+          price: 'R$ 300 a R$ 600',
+          icon: <Globe className="w-6 h-6 text-[#0A0A0A]" />
+        }
+      ]
     },
     {
-      title: 'Criativos p/ Anúncios',
-      price: 'R$ 40 a R$ 90',
-      icon: <TrendingUp className="w-7 h-7 text-[#0A0A0A]" />
-    },
-    {
-      title: 'Reels Editado',
-      price: 'R$ 50 a R$ 120',
-      icon: <Play className="w-7 h-7 text-[#0A0A0A]" />
+      group: 'Performance & Conteúdo',
+      icon: <TrendingUp className="w-5 h-5 text-[#0A0A0A]" />,
+      items: [
+        {
+          title: 'Criativos p/ Anúncios',
+          desc: 'Artes otimizadas para performance.',
+          price: 'R$ 40 a R$ 90',
+          icon: <TrendingUp className="w-6 h-6 text-[#0A0A0A]" />
+        },
+        {
+          title: 'Reels Editado',
+          desc: 'Vídeos curtos que viralizam.',
+          price: 'R$ 50 a R$ 120',
+          icon: <Play className="w-6 h-6 text-[#0A0A0A]" />
+        }
+      ]
     }
   ];
 
@@ -99,22 +121,48 @@ const Services = () => {
         {/* Serviços Avulsos */}
         <div className="text-center mb-10">
           <span className="bg-[#F5F5F0] text-[#C9A962] px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wide inline-block">Serviços Avulsos</span>
-          <p className="text-zinc-500 max-w-2xl mx-auto mt-4">Escolha exatamente o que precisa, quando precisa.</p>
+          <p className="text-zinc-500 max-w-2xl mx-auto mt-4">Escolha exatamente o que precisa — rápido, profissional e sob medida.</p>
         </div>
-        <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto mb-32">
-          {avulsoItems.map((item, idx) => (
-            <div key={idx} className="bg-white p-8 rounded-[2rem] shadow-lg border border-zinc-100 hover:shadow-2xl transition-all duration-300 flex items-center justify-between">
-              <div className="flex items-center gap-5">
-                <div className="w-12 h-12 rounded-2xl flex items-center justify-center bg-[#D4B978] shadow-sm">
-                  {item.icon}
+
+        <div className="space-y-10 max-w-6xl mx-auto mb-24">
+          {avulsoSections.map((section, sIdx) => (
+            <div key={sIdx}>
+              <div className="flex items-center gap-2 mb-5">
+                <div className="w-8 h-8 rounded-xl bg-[#D4B978] flex items-center justify-center">
+                  {section.icon}
                 </div>
-                <h3 className="text-xl font-bold text-[#0A0A0A]">{item.title}</h3>
+                <h4 className="text-base font-bold text-[#0A0A0A]">{section.group}</h4>
               </div>
-              <div className="text-right">
-                <p className="text-[#C9A962] font-extrabold">{item.price}</p>
+
+              <div className="grid md:grid-cols-2 gap-8">
+                {section.items.map((item, idx) => (
+                  <div key={idx} className="bg-white p-9 rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.06)] border border-zinc-100 hover:shadow-[0_30px_70px_rgba(0,0,0,0.08)] transition-all duration-300 flex items-center justify-between">
+                    <div className="flex items-start gap-5">
+                      <div className="w-12 h-12 rounded-2xl flex items-center justify-center bg-[#D4B978]/90">
+                        {item.icon}
+                      </div>
+                      <div>
+                        <h3 className="text-[1.25rem] leading-tight font-semibold text-[#0A0A0A]">{item.title}</h3>
+                        <p className="text-zinc-500 text-sm mt-1">{item.desc}</p>
+                      </div>
+                    </div>
+                    <div>
+                      <span className="inline-block bg-[#F5F5F0] text-[#C9A962] font-bold text-xs px-4 py-2 rounded-full whitespace-nowrap">
+                        {item.price}
+                      </span>
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
           ))}
+        </div>
+
+        <div className="text-center mb-32">
+          <p className="text-zinc-500 text-sm mb-4">Quer um orçamento rápido?</p>
+          <a href="https://wa.me/5541998951738" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-[#C9A962] text-[#0A0A0A] font-bold hover:bg-[#C9A962] hover:text-[#0A0A0A] transition-colors">
+            Falar com a Costa & Gavron <ArrowRight size={16} />
+          </a>
         </div>
 
         {/* Pricing Grid Section */}
