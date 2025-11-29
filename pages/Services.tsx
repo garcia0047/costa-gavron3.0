@@ -1,7 +1,8 @@
 import React from 'react';
 import Button from '../components/Button';
 import { Link } from 'react-router-dom';
-import { Check, CheckCircle2, ArrowRight, Share2, Globe, TrendingUp, Palette, Play } from 'lucide-react';
+import { Check, CheckCircle2, ArrowRight, Share2, Globe, TrendingUp, Palette, Play, Eye, MessageCircle, Zap } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 const Services = () => {
   const servicesList = [
@@ -126,6 +127,63 @@ const Services = () => {
       </div>
 
       <div className="container mx-auto px-6 py-16 relative z-20">
+        {/* 3 Pilares (lado a lado) */}
+        <div className="grid md:grid-cols-3 gap-8 max-w-7xl mx-auto mb-32">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0 }}
+            viewport={{ once: true }}
+            className="bg-white/60 backdrop-blur-sm p-10 rounded-[2.5rem] border border-zinc-100 shadow-lg hover:shadow-xl transition-all duration-300"
+          >
+            <div className="w-12 h-12 rounded-2xl bg-[#D4B978] flex items-center justify-center mb-6">
+              <Eye size={24} className="text-[#0A0A0A]" />
+            </div>
+            <h3 className="text-2xl font-bold text-[#0A0A0A] mb-3">Presença & Posicionamento</h3>
+            <p className="text-[#C9A962] font-semibold text-sm mb-4">"Sua marca vista como ela merece."</p>
+            <p className="text-zinc-600 text-sm leading-relaxed">
+              Construímos uma presença digital que transmite confiança, profissionalismo e propósito. Da identidade visual ao conteúdo do dia a dia, criamos uma imagem moderna e coerente.
+            </p>
+            <p className="text-zinc-400 text-xs mt-4 italic">Foco: credibilidade, estética, consistência.</p>
+          </motion.div>
+
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.15 }}
+            viewport={{ once: true }}
+            className="bg-white/60 backdrop-blur-sm p-10 rounded-[2.5rem] border border-zinc-100 shadow-lg hover:shadow-xl transition-all duration-300"
+          >
+            <div className="w-12 h-12 rounded-2xl bg-[#D4B978] flex items-center justify-center mb-6">
+              <MessageCircle size={24} className="text-[#0A0A0A]" />
+            </div>
+            <h3 className="text-2xl font-bold text-[#0A0A0A] mb-3">Conteúdo que Conecta</h3>
+            <p className="text-[#C9A962] font-semibold text-sm mb-4">"Conteúdo que prende atenção e gera relacionamento."</p>
+            <p className="text-zinc-600 text-sm leading-relaxed">
+              Produzimos posts, stories e narrativas que falam a língua do cliente. Com estratégia + design + copy, seu conteúdo passa a ter ritmo, estilo e intenção.
+            </p>
+            <p className="text-zinc-400 text-xs mt-4 italic">Foco: engajamento, conexão, presença constante.</p>
+          </motion.div>
+
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+            viewport={{ once: true }}
+            className="bg-white/60 backdrop-blur-sm p-10 rounded-[2.5rem] border border-zinc-100 shadow-lg hover:shadow-xl transition-all duration-300"
+          >
+            <div className="w-12 h-12 rounded-2xl bg-[#D4B978] flex items-center justify-center mb-6">
+              <Zap size={24} className="text-[#0A0A0A]" />
+            </div>
+            <h3 className="text-2xl font-bold text-[#0A0A0A] mb-3">Crescimento & Performance</h3>
+            <p className="text-[#C9A962] font-semibold text-sm mb-4">"Estratégia inteligente para alcançar mais pessoas e vender mais."</p>
+            <p className="text-zinc-600 text-sm leading-relaxed">
+              Aplicamos tráfego pago, testes criativos e otimizações semanais para aumentar sua visibilidade e gerar resultados reais.
+            </p>
+            <p className="text-zinc-400 text-xs mt-4 italic">Foco: alcance, vendas, escala.</p>
+          </motion.div>
+        </div>
+
         {/* Services List Grid */}
         <div className="grid lg:grid-cols-2 gap-8 max-w-6xl mx-auto mb-32">
           {servicesList.map((service, idx) => (
