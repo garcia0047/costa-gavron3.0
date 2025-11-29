@@ -1,63 +1,10 @@
 import React from 'react';
 import Button from '../components/Button';
 import { Link } from 'react-router-dom';
-import { Check, CheckCircle2, ArrowRight, Share2, Globe, TrendingUp, Palette, Play, Eye, MessageCircle, Zap } from 'lucide-react';
+import { Check, CheckCircle2, ArrowRight, Play, Eye, MessageCircle, Zap } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const Services = () => {
-  const servicesList = [
-    {
-      title: "Branding & Identidade Visual",
-      description: "Construímos marcas memoráveis que comunicam a essência do seu negócio e geram autoridade no mercado.",
-      features: [
-        "Logo & Manual de Marca",
-        "Papelaria Corporativa",
-        "Estratégia de Posicionamento",
-        "Naming & Tagline",
-        "Aplicações de Marca"
-      ],
-      icon: <Palette className="w-8 h-8 text-[#0A0A0A]" strokeWidth={1.5} />
-    },
-    {
-      title: "Web Design & Desenvolvimento",
-      description: "Sites modernos, responsivos e otimizados para conversão que transformam visitantes em clientes.",
-      features: [
-        "Landing Pages de Alta Conversão",
-        "Sites Institucionais",
-        "E-commerce Completo",
-        "Design Responsivo (Mobile-first)",
-        "Otimização SEO On-page",
-        "Integração com Analytics"
-      ],
-      icon: <Globe className="w-8 h-8 text-[#0A0A0A]" strokeWidth={1.5} />
-    },
-    {
-      title: "Gestão de Mídias Sociais",
-      description: "Estratégia completa de conteúdo e gerenciamento de redes sociais que engaja e gera resultados.",
-      features: [
-        "Planejamento de Conteúdo Mensal",
-        "Design de Posts e Stories",
-        "Calendário Editorial",
-        "Gestão de Comunidade",
-        "Relatórios de Performance",
-        "Estratégia de Hashtags"
-      ],
-      icon: <Share2 className="w-8 h-8 text-[#0A0A0A]" strokeWidth={1.5} />
-    },
-    {
-      title: "Marketing Digital Estratégico",
-      description: "Campanhas digitais que aumentam sua visibilidade e geram leads qualificados para seu negócio.",
-      features: [
-        "Estratégia de SEO Completa",
-        "Campanhas Google Ads",
-        "Facebook & Instagram Ads",
-        "Email Marketing Automatizado",
-        "Funis de Conversão",
-        "Análise de ROI"
-      ],
-      icon: <TrendingUp className="w-8 h-8 text-[#0A0A0A]" strokeWidth={1.5} />
-    }
-  ];
 
   const plans = [
     {
@@ -182,37 +129,6 @@ const Services = () => {
             </p>
             <p className="text-zinc-400 text-xs mt-4 italic">Foco: alcance, vendas, escala.</p>
           </motion.div>
-        </div>
-
-        {/* Services List Grid */}
-        <div className="grid lg:grid-cols-2 gap-8 max-w-6xl mx-auto mb-32">
-          {servicesList.map((service, idx) => (
-            <div key={idx} className="bg-white p-10 md:p-12 rounded-[2.5rem] shadow-lg flex flex-col border border-zinc-100 hover:shadow-2xl transition-all duration-300">
-              
-              <div className="mb-8">
-                 {/* Gold Icon Box */}
-                 <div className="w-16 h-16 rounded-2xl mb-8 flex items-center justify-center bg-[#D4B978] shadow-md">
-                   {service.icon}
-                 </div>
-                 
-                 <h3 className="text-3xl font-bold text-[#0A0A0A] mb-4">{service.title}</h3>
-                 <p className="text-zinc-500 text-lg leading-relaxed">
-                   {service.description}
-                 </p>
-              </div>
-              
-              <div className="flex-grow">
-                 <div className="grid md:grid-cols-2 gap-4 mb-10">
-                  {service.features.map((feature, fIdx) => (
-                    <li key={fIdx} className="flex items-start text-zinc-600 text-sm list-none">
-                      <Check size={18} className="text-[#C9A962] mr-3 mt-0.5 flex-shrink-0" strokeWidth={3} />
-                      {feature}
-                    </li>
-                  ))}
-                </div>
-              </div>
-            </div>
-          ))}
         </div>
 
         {/* Pricing Grid Section */}
