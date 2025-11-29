@@ -80,14 +80,20 @@ const Services = () => {
       highlight: false
     },
     {
-      name: "Professional",
-      description: "Para negócios em crescimento",
+      name: "Growth Performance",
+      price: "R$ 1.200 fixo",
+      altPrice: "Opção: R$ 800 + 20% da verba de anúncios",
+      description: "Para quem quer visibilidade real e resultados consistentes.",
       features: [
-        "Branding Completo",
-        "Site Institucional",
-        "Gestão Social Completa",
-        "SEO Básico"
+        "Tudo do Plano Start",
+        "Gestão de Meta Ads",
+        "Até 2 campanhas mensais",
+        "4 criativos para anúncios",
+        "Otimizações semanais",
+        "Relatório avançado",
+        "Prazo: 7 a 10 dias úteis"
       ],
+      ideal: "Ideal para: empresas que querem atrair clientes todos os meses",
       highlight: true
     },
     {
@@ -180,11 +186,16 @@ const Services = () => {
                  )}
 
                  <h3 className="text-2xl font-bold mb-2">{plan.name}</h3>
-                 {plan.price && (
-                   <p className={`text-lg font-semibold mb-2 ${plan.highlight ? 'text-[#C9A962]' : 'text-[#C9A962]'}`}>
-                     {plan.price}
-                   </p>
-                 )}
+                {plan.price && (
+                  <p className={`text-lg font-semibold mb-1 ${plan.highlight ? 'text-[#C9A962]' : 'text-[#C9A962]'}`}>
+                    {plan.price}
+                  </p>
+                )}
+                {plan.altPrice && (
+                  <p className={`text-xs mb-4 ${plan.highlight ? 'text-zinc-400' : 'text-zinc-500'}`}>
+                    {plan.altPrice}
+                  </p>
+                )}
                  <p className={`text-sm mb-10 ${plan.highlight ? 'text-zinc-400' : 'text-zinc-500'}`}>
                    {plan.description}
                  </p>
