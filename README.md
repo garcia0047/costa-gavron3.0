@@ -23,35 +23,33 @@ Gerar arquivos de produção:
 npm run build
 ```
 
-## Hospedagem no Firebase
+## Hospedagem no Vercel
 
-Passos para publicar no Firebase Hosting:
+O projeto está configurado para deploy automático no Vercel:
 
-1. Instale a CLI do Firebase (uma vez):
+**Deploy automático via Git:**
+- Conecte o repositório GitHub ao Vercel
+- Cada push na branch `main` faz deploy automático
+- `vercel.json` já está configurado com as rotas corretas
+
+**Deploy manual via CLI:**
+1. Instale a CLI do Vercel (uma vez):
 ```
-npm install -g firebase-tools
+npm install -g vercel
 ```
-2. Faça login na sua conta Google:
+2. Faça login:
 ```
-firebase login
+vercel login
 ```
-3. Configure o projeto (substitua `costa-gavron-creative` pelo ID real, se necessário):
+3. Deploy:
 ```
-firebase use costa-gavron-creative
-```
-4. Gere o build de produção:
-```
-npm run build
-```
-5. Publique:
-```
-firebase deploy --only hosting
+vercel --prod
 ```
 
 Notas:
-- Este projeto usa `HashRouter`, então funciona bem em hosting estático; mantemos `rewrites` para `index.html` por segurança.
-- O deploy serve arquivos da pasta `dist/` conforme `firebase.json`.
-- Cache: HTML sem cache; assets (`js`, `css`, imagens) com cache longo e `immutable`.
+- Este projeto usa `HashRouter`, então funciona bem em hosting estático
+- Build output: `dist/`
+- Variáveis de ambiente: configure no painel do Vercel em Settings → Environment Variables
 
 ## Variáveis de ambiente
 
