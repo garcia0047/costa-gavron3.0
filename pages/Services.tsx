@@ -97,14 +97,21 @@ const Services = () => {
       highlight: true
     },
     {
-      name: "Enterprise",
-      description: "Solução completa para escalar",
+      name: "Authority Max",
+      price: "R$ 1.800 a R$ 2.500",
+      description: "Para quem quer transformar seu negócio em uma máquina de vendas.",
       features: [
-        "Tudo do Professional",
-        "Marketing Digital",
-        "Campanhas Ads",
-        "Consultoria Mensal"
+        "12–16 posts",
+        "20 stories",
+        "Gestão completa de Meta Ads",
+        "6 criativos profissionais",
+        "Landing Page otimizada",
+        "Copywriting completo da página",
+        "Relatório premium",
+        "Suporte prioritário",
+        "Prazo: 10 a 14 dias úteis"
       ],
+      ideal: "Ideal para: negócios que querem escala rápida com conteúdo + tráfego + conversão.",
       highlight: false
     }
   ];
