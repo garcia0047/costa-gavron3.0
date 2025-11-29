@@ -1,7 +1,7 @@
 import React from 'react';
 import Button from '../components/Button';
 import { Link } from 'react-router-dom';
-import { Check, CheckCircle2, ArrowRight, Play, Eye, MessageCircle, Zap } from 'lucide-react';
+import { Check, CheckCircle2, ArrowRight, Play, Eye, MessageCircle, Zap, Palette, Globe, TrendingUp } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const Services = () => {
