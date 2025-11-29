@@ -64,13 +64,19 @@ const Services = () => {
 
   const plans = [
     {
-      name: "Starter",
-      description: "Ideal para quem está começando",
+      name: "Start Social",
+      price: "R$ 600 a R$ 900/mês",
+      description: "Para quem está começando e precisa da primeira presença profissional no digital.",
       features: [
-        "Logo + Manual Básico",
-        "3 Posts Sociais/Semana",
-        "Landing Page Simples"
+        "8 posts mensais estratégicos",
+        "12 stories engajadores",
+        "Design + copy + hashtags otimizados",
+        "Calendário estratégico personalizado",
+        "Relatório simples de performance",
+        "Suporte via WhatsApp",
+        "Prazo: 5 a 7 dias úteis"
       ],
+      ideal: "Ideal para: pequenos negócios, MEIs e iniciantes que querem construir presença digital sólida.",
       highlight: false
     },
     {
@@ -174,6 +180,11 @@ const Services = () => {
                  )}
 
                  <h3 className="text-2xl font-bold mb-2">{plan.name}</h3>
+                 {plan.price && (
+                   <p className={`text-lg font-semibold mb-2 ${plan.highlight ? 'text-[#C9A962]' : 'text-[#C9A962]'}`}>
+                     {plan.price}
+                   </p>
+                 )}
                  <p className={`text-sm mb-10 ${plan.highlight ? 'text-zinc-400' : 'text-zinc-500'}`}>
                    {plan.description}
                  </p>
@@ -186,6 +197,12 @@ const Services = () => {
                      </li>
                    ))}
                  </ul>
+
+                 {plan.ideal && (
+                   <p className={`text-xs mb-6 italic ${plan.highlight ? 'text-zinc-400' : 'text-zinc-500'}`}>
+                     {plan.ideal}
+                   </p>
+                 )}
 
                 <a href="https://wa.me/5541998951738" target="_blank" rel="noopener noreferrer">
                    <button 

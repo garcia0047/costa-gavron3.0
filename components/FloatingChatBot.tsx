@@ -13,7 +13,7 @@ export const FloatingChatBot = () => {
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  const GEMINI_API_KEY = 'AIzaSyCM_q6EP5OwedretmXlFjoobnILrC55jMs';
+  const GEMINI_API_KEY = 'AIzaSyBTA2KF-5DtPi_QD3eVF3_Ij5PYdbDnFoA';
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
