@@ -237,6 +237,66 @@ const Services = () => {
            </div>
         </div>
 
+        {/* Serviços Avulsos - Bloco Resumido */}
+        <div className="max-w-4xl mx-auto mb-24">
+          <div className="bg-white p-10 md:p-12 rounded-[2.5rem] shadow-xl border border-zinc-100">
+            <div className="text-center mb-8">
+              <h3 className="text-2xl md:text-3xl font-bold text-[#0A0A0A] mb-3">Serviços Avulsos</h3>
+              <p className="text-zinc-500 text-sm">Contrate apenas o que você precisa, sem compromisso de longo prazo.</p>
+            </div>
+            
+            <div className="grid md:grid-cols-2 gap-6">
+              <div className="flex items-center justify-between p-5 rounded-2xl bg-[#FAFAFA] border border-zinc-100">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-xl bg-[#D4B978] flex items-center justify-center">
+                    <Palette size={20} className="text-[#0A0A0A]" />
+                  </div>
+                  <span className="font-semibold text-[#0A0A0A]">Identidade Visual</span>
+                </div>
+                <span className="text-[#C9A962] font-bold text-sm whitespace-nowrap">R$ 150–350</span>
+              </div>
+
+              <div className="flex items-center justify-between p-5 rounded-2xl bg-[#FAFAFA] border border-zinc-100">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-xl bg-[#D4B978] flex items-center justify-center">
+                    <Globe size={20} className="text-[#0A0A0A]" />
+                  </div>
+                  <span className="font-semibold text-[#0A0A0A]">Landing Page</span>
+                </div>
+                <span className="text-[#C9A962] font-bold text-sm whitespace-nowrap">R$ 300–600</span>
+              </div>
+
+              <div className="flex items-center justify-between p-5 rounded-2xl bg-[#FAFAFA] border border-zinc-100">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-xl bg-[#D4B978] flex items-center justify-center">
+                    <TrendingUp size={20} className="text-[#0A0A0A]" />
+                  </div>
+                  <span className="font-semibold text-[#0A0A0A]">Criativos p/ Anúncios</span>
+                </div>
+                <span className="text-[#C9A962] font-bold text-sm whitespace-nowrap">R$ 40–90</span>
+              </div>
+
+              <div className="flex items-center justify-between p-5 rounded-2xl bg-[#FAFAFA] border border-zinc-100">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-xl bg-[#D4B978] flex items-center justify-center">
+                    <Play size={20} className="text-[#0A0A0A]" />
+                  </div>
+                  <span className="font-semibold text-[#0A0A0A]">Reels Editado</span>
+                </div>
+                <span className="text-[#C9A962] font-bold text-sm whitespace-nowrap">R$ 50–120</span>
+              </div>
+            </div>
+
+            <div className="text-center mt-8">
+              <a href="https://wa.me/5541998951738" target="_blank" rel="noopener noreferrer">
+                <button className="inline-flex items-center gap-2 px-8 py-3 rounded-full border-2 border-[#C9A962] text-[#0A0A0A] font-bold hover:bg-[#C9A962] transition-all">
+                  Solicitar Serviço Avulso <ArrowRight size={16} />
+                </button>
+              </a>
+            </div>
+          </div>
+        </div>
+
         {/* Not Found / CTA Section */}
         <div className="bg-[#0A0A0A] rounded-[3rem] p-12 md:p-20 text-center max-w-5xl mx-auto relative overflow-hidden shadow-2xl">
           {/* Decorative background elements */}
