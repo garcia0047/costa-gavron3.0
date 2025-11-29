@@ -52,101 +52,19 @@ export const FloatingChatBot = () => {
 
     const userMessage = { role: 'user' as const, content: input };
     setMessages(prev => [...prev, userMessage]);
+    const currentInput = input;
     setInput('');
     setIsLoading(true);
 
-    try {
-      // Contexto da Costa Gavron
-      const context = `Você é um assistente virtual da Costa Gavron, uma agência de marketing digital e branding premium. 
-
-SOBRE A COSTA GAVRON:
-- Especializada em Branding, Web Design, Gestão de Mídias Sociais e Marketing Digital
-- Foco em construir marcas memoráveis e gerar resultados reais
-- Atendimento premium e personalizado
-
-SERVIÇOS PRINCIPAIS:
-1. Branding & Identidade Visual (logos, manual de marca, posicionamento)
-2. Web Design & Desenvolvimento (landing pages, sites institucionais, e-commerce)
-3. Gestão de Mídias Sociais (conteúdo estratégico, design de posts e stories)
-4. Marketing Digital (SEO, Google Ads, Facebook/Instagram Ads, funis de conversão)
-
-PLANOS:
-- Start Social: R$ 600-900/mês (8 posts + 12 stories)
-- Growth Performance: R$ 1.200/mês (inclui gestão de Meta Ads)
-- Authority Max: R$ 1.800-2.500/mês (12-16 posts + 20 stories + landing page)
-
-CONTATO:
-- WhatsApp: (41) 99895-1738
-- Site: costa-gavron.com
-
-Responda de forma amigável, profissional e objetiva. Se perguntarem sobre preços, mencione os planos. Incentive o contato via WhatsApp para orçamentos personalizados.
-
-PERGUNTA DO CLIENTE: ${input}`;
-
-      const response = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${GEMINI_API_KEY}`,
-        {
-          method: 'POST',
-          headers: { 
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            contents: [{
-              parts: [{ text: context }]
-            }],
-            generationConfig: {
-              temperature: 0.7,
-              maxOutputTokens: 500,
-            },
-            safetySettings: [
-              {
-                category: "HARM_CATEGORY_HARASSMENT",
-                threshold: "BLOCK_NONE"
-              },
-              {
-                category: "HARM_CATEGORY_HATE_SPEECH",
-                threshold: "BLOCK_NONE"
-              },
-              {
-                category: "HARM_CATEGORY_SEXUALLY_EXPLICIT",
-                threshold: "BLOCK_NONE"
-              },
-              {
-                category: "HARM_CATEGORY_DANGEROUS_CONTENT",
-                threshold: "BLOCK_NONE"
-              }
-            ]
-          })
-        }
-      );
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        console.error('API Error:', errorData);
-        throw new Error(errorData.error?.message || `HTTP ${response.status}`);
-      }
-
-      const data = await response.json();
-      console.log('Gemini response:', data);
-
-      if (data.candidates?.[0]?.content?.parts?.[0]?.text) {
-        const assistantMessage = data.candidates[0].content.parts[0].text;
-        setMessages(prev => [...prev, { role: 'assistant', content: assistantMessage }]);
-      } else {
-        throw new Error('Resposta inválida da API');
-      }
-    } catch (err: any) {
-      console.error('Erro Gemini:', err);
-      
-      // Usa fallback local em caso de erro
-      const fallbackResponse = getFallbackResponse(input);
+    // Usa apenas FAQ local por enquanto (mais rápido e confiável)
+    setTimeout(() => {
+      const fallbackResponse = getFallbackResponse(currentInput);
       setMessages(prev => [...prev, { 
         role: 'assistant', 
         content: fallbackResponse
       }]);
-    } finally {
       setIsLoading(false);
-    }
+    }, 500); // Simula um pequeno delay para parecer natural
   };
 
   return (
